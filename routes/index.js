@@ -18,7 +18,13 @@ router.post("/create",function(req,res)
   )
   res.send("submited");
 })
-
+router.get("/read",function(req,res)
+{
+  userModel.find().then(function(alluser)
+  {
+    res.send(alluser);
+  })
+})
 router.get("/read/:id",function(req,res)
 {
   userModel.findOne({_id:req.params.id})
@@ -28,5 +34,23 @@ router.get("/read/:id",function(req,res)
   })
 
 })  
+
+router.get("/delete/:id",function(req,res)
+{
+  userModel.findOneAndDelete({_id : req.params.id})
+  .then(function()
+  {
+    res.redirect("/read");
+  });
+})
+
+router.get("/update/:id/:newValue",function(req,res)
+{
+  userModel.findOneAndUpdate({_id: req.params.id},{name : req.params.newValue},{new : true})
+  .then(function(val)
+  {
+    res.send(val);
+  })
+})
 
 module.exports = router;
