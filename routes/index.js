@@ -27,6 +27,6 @@ router.get("/read/:id",function(req,res)
     res.send(user);
   })
 
-})
+})  
 
 module.exports = router;
